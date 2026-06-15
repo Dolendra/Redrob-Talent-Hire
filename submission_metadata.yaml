@@ -29,6 +29,9 @@ compute:
 ai_tools_used:
   - "Cursor"
   - "Claude"
+  - "ChatGPT"
+  - "Gemini"
+  - "Antigravity IDE"
 
 ai_usage_summary: |
   Used Cursor/Claude for architecture, implementation, and code review.
