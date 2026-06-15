@@ -60,6 +60,7 @@ ai_tools_used:
   - "Claude"        # e.g. for architecture discussion, code review
   - "GitHub Copilot"  # e.g. for autocomplete
   - "Cursor"         # For building code
+  - "Antigravity IDE" # For building code
   - "Gemini"        # For Ideation
   - "ChatGPT"       # For Brainstorming
 
