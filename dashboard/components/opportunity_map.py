@@ -66,12 +66,13 @@ def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> g
                 name=quadrant,
                 text=qdf["candidate_id"],
                 marker=dict(
-                    color=QUADRANT_COLORS[quadrant],
-                    size=10,
+                    size=18,
+                    color="yellow",
                     opacity=1,
+                    symbol="circle",
                     line=dict(
-                        color="white",
-                        width=1
+                        color="red",
+                        width=3
                     )
                 ),
                 hovertemplate=
