@@ -92,6 +92,37 @@ def load_precomputed_rows() -> list[dict] | None:
 
 
 def main() -> None:
+    st.markdown("""
+        <style>
+        .stApp {
+            background-color: #0E1117;
+            color: #E0E6ED;
+        }
+        h1, h2, h3, h4 {
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+        }
+        div[data-testid="metric-container"] {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        .stButton>button {
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 8px;
+            border: none;
+            transition: all 0.2s ease-in-out;
+        }
+        .stButton>button:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+        </style>
+    """, unsafe_allow_html=True)
     job = load_job_description(JD_PATH, load_weights(ROOT / "config" / "weights.json"))
     st.title("Redrob-Talent-Hire")
     st.caption(f"Target role: **{job.title}**")
