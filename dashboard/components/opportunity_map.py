@@ -16,6 +16,14 @@ QUADRANT_COLORS = {
 
 
 def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> go.Figure:
+
+    import streamlit as st
+
+    st.write("Rows in opportunity map:", len(df))
+    
+    st.dataframe(
+        df[["candidate_id", "s_current", "future_fit", "quadrant"]]
+    )
     # Ensure all 4 quadrants are represented in the DataFrame so they always show in the legend
     print("===== OPPORTUNITY MAP =====")
     print("Rows:", len(df))
