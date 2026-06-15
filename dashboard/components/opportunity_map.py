@@ -16,12 +16,33 @@ QUADRANT_COLORS = {
 
 
 def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> go.Figure:
+    # Ensure all 4 quadrants are represented in the DataFrame so they always show in the legend
+    all_quadrants = ["Safe Hire", "Hidden Gem", "Overrated", "Unaligned"]
+    present_quadrants = set(df["quadrant"].dropna().unique())
+    missing_quadrants = [q for q in all_quadrants if q not in present_quadrants]
+    
+    if missing_quadrants:
+        ghost_rows = pd.DataFrame([
+            {
+                "s_current": None,
+                "future_fit": None,
+                "quadrant": q,
+                "candidate_id": f"GHOST_{i}",
+                "rank": None,
+                "score": None,
+                "hidden_gem": None,
+            }
+            for i, q in enumerate(missing_quadrants)
+        ])
+        df = pd.concat([df, ghost_rows], ignore_index=True)
+
     fig = px.scatter(
         df,
         x="s_current",
         y="future_fit",
         color="quadrant",
         color_discrete_map=QUADRANT_COLORS,
+        category_orders={"quadrant": all_quadrants},
         hover_data=["candidate_id", "rank", "score", "hidden_gem"],
         custom_data=["candidate_id"],
         labels={"s_current": "Current Fit", "future_fit": "Future Fit"},
