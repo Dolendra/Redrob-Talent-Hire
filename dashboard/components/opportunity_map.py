@@ -17,6 +17,18 @@ QUADRANT_COLORS = {
 
 def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> go.Figure:
     # Ensure all 4 quadrants are represented in the DataFrame so they always show in the legend
+    print("===== OPPORTUNITY MAP =====")
+    print("Rows:", len(df))
+    print("Columns:", df.columns.tolist())
+
+    try:
+        print(df[["candidate_id", "s_current", "future_fit", "quadrant"]].head(20))
+    except Exception as e:
+        print("Error printing dataframe:", e)
+
+    print("===========================")
+
+    
     all_quadrants = ["Safe Hire", "Hidden Gem", "Overrated", "Unaligned"]
     present_quadrants = set(df["quadrant"].dropna().unique())
     missing_quadrants = [q for q in all_quadrants if q not in present_quadrants]
