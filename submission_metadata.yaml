@@ -9,9 +9,6 @@ team_members:
   - name: "Nelluri Dolendra Sai Teja"
     email: "dolendracse@gmail.com"
     role: "ML Engineer,Team Lead"
-  - name: "Kandi Santhosh"
-    email: "ndst4321@gmail.com"
-    role: "Data Engineer"
 
 github_repo: "https://github.com/Dolendra/Redrob-Talent-Hire"
 sandbox_link: "https://huggingface.co/spaces/Dolendra/Redrob-Talent-Hire"
@@ -32,6 +29,9 @@ compute:
 ai_tools_used:
   - "Cursor"
   - "Claude"
+  - "ChatGPT"
+  - "Gemini"
+  - "Antigravity IDE"
 
 ai_usage_summary: |
   Used Cursor/Claude for architecture, implementation, and code review.
