@@ -47,84 +47,97 @@ def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> g
 
         df = pd.concat([df, ghost_rows], ignore_index=True)
 
-    fig = px.scatter(
-        df,
-        x="s_current",
-        y="future_fit",
-        color="quadrant",
-        color_discrete_map=QUADRANT_COLORS,
-        category_orders={"quadrant": all_quadrants},
-        hover_data=["candidate_id", "rank", "score", "hidden_gem"],
-        custom_data=["candidate_id"],
-        labels={
-            "s_current": "Current Fit",
-            "future_fit": "Future Fit",
-        },
+    fig = go.Figure()
+    
+    st.subheader("Plotly Trace Debug")
+    
+    for quadrant in all_quadrants:
+        qdf = df[df["quadrant"] == quadrant]
+    
+        st.write(
+            f"{quadrant}: {len(qdf)} candidates"
+        )
+    
+        fig.add_trace(
+            go.Scatter(
+                x=qdf["s_current"],
+                y=qdf["future_fit"],
+                mode="markers",
+                name=quadrant,
+                text=qdf["candidate_id"],
+                marker=dict(
+                    color=QUADRANT_COLORS[quadrant],
+                    size=10,
+                    opacity=1,
+                    line=dict(
+                        color="white",
+                        width=1
+                    )
+                ),
+                hovertemplate=
+                    "<b>%{text}</b><br>" +
+                    "Current Fit: %{x:.2f}<br>" +
+                    "Future Fit: %{y:.2f}<br>" +
+                    "<extra></extra>"
+            )
+        )
+    
+    st.write("Total traces:", len(fig.data))
+    
+    for i, trace in enumerate(fig.data):
+        st.write(
+            f"Trace {i}: {trace.name} | Points: {len(trace.x)}"
+        )
+    
+    fig.update_layout(
         title="Talent Opportunity Map",
         height=520,
-        render_mode="webgl",  # changed from svg
+        xaxis_title="Current Fit",
+        yaxis_title="Future Fit",
     )
-
-    # Debug traces
-    st.subheader("Plotly Trace Debug")
-
-    st.write("Number of traces:", len(fig.data))
-
-    for i, trace in enumerate(fig.data):
-        try:
-            st.write(
-                f"Trace {i} | Name: {trace.name} | Points: {len(trace.x)}"
-            )
-        except Exception:
-            st.write(f"Trace {i} | Name: {trace.name}")
-
+    
     fig.add_hline(
         y=50,
         line_dash="dash",
         line_color="#cbd5e1",
         line_width=1,
     )
-
+    
     fig.add_vline(
         x=50,
         line_dash="dash",
         line_color="#cbd5e1",
         line_width=1,
     )
-
+    
     fig.add_annotation(
         x=75,
         y=75,
         text="Safe Hire",
         showarrow=False,
-        font=dict(size=11, color="#64748b"),
     )
-
+    
     fig.add_annotation(
         x=25,
         y=75,
         text="Hidden Gem",
         showarrow=False,
-        font=dict(size=11, color="#64748b"),
     )
-
+    
     fig.add_annotation(
         x=75,
         y=25,
         text="Overrated",
         showarrow=False,
-        font=dict(size=11, color="#64748b"),
     )
-
+    
     fig.add_annotation(
         x=25,
         y=25,
         text="Unaligned",
         showarrow=False,
-        font=dict(size=11, color="#64748b"),
     )
-
-    # Force visible ranges
+    
     fig.update_xaxes(range=[20, 80])
     fig.update_yaxes(range=[20, 80])
 
