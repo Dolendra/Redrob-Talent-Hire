@@ -18,9 +18,6 @@ team_members:
   - name: "Nelluri Dolendra Sai Teja"
     email: "dolendracse@gmail.com"
     role: "ML Engineer,Team Lead"          # Optional, e.g. "Team Lead", "Backend", "Data"
-  - name: "Kandi Santhosh"
-    email: "ndst4321@gmail.com"
-    role: "Data Engineer"
   # Add more members as needed; solo participants list just one member
 
 # ============================================================================
