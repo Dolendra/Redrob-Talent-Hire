@@ -16,40 +16,9 @@ QUADRANT_COLORS = {
 
 
 def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> go.Figure:
-    # Ensure all 4 quadrants are represented in the DataFrame so they always show in the legend
-    all_quadrants = ["Safe Hire", "Hidden Gem", "Overrated", "Unaligned"]
-    present_quadrants = set(df["quadrant"].dropna().unique())
-    missing_quadrants = [q for q in all_quadrants if q not in present_quadrants]
-    
-    if missing_quadrants:
-        ghost_rows = pd.DataFrame([
-            {
-                "s_current": None,
-                "future_fit": None,
-                "quadrant": q,
-                "candidate_id": f"GHOST_{i}",
-                "rank": None,
-                "score": None,
-                "hidden_gem": None,
-            }
-            for i, q in enumerate(missing_quadrants)
-        ])
-        df = pd.concat([df, ghost_rows], ignore_index=True)
+    fig = go.Figure()
 
-    fig = px.scatter(
-        df,
-        x="s_current",
-        y="future_fit",
-        color="quadrant",
-        color_discrete_map=QUADRANT_COLORS,
-        category_orders={"quadrant": all_quadrants},
-        hover_data=["candidate_id", "rank", "score", "hidden_gem"],
-        custom_data=["candidate_id"],
-        labels={"s_current": "Current Fit", "future_fit": "Future Fit"},
-        title="Talent Opportunity Map",
-        height=520,
-        render_mode="svg",
-    )
+    # Add reference lines and annotations
     fig.add_hline(y=50, line_dash="dash", line_color="#cbd5e1", line_width=1)
     fig.add_vline(x=50, line_dash="dash", line_color="#cbd5e1", line_width=1)
     fig.add_annotation(x=75, y=75, text="Safe Hire", showarrow=False, font=dict(size=11, color="#64748b"))
@@ -57,6 +26,44 @@ def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> g
     fig.add_annotation(x=75, y=25, text="Overrated", showarrow=False, font=dict(size=11, color="#64748b"))
     fig.add_annotation(x=25, y=25, text="Unaligned", showarrow=False, font=dict(size=11, color="#64748b"))
 
+    all_quadrants = ["Safe Hire", "Hidden Gem", "Overrated", "Unaligned"]
+
+    # Loop through quadrants and build traces manually with debug prints
+    for quadrant in all_quadrants:
+        qdf = df[df["quadrant"] == quadrant]
+        
+        # Debug prints as requested
+        print(f"Quadrant: {quadrant}")
+        print(qdf[["s_current", "future_fit"]].head())
+
+        x_vals = qdf["s_current"].tolist() if not qdf.empty else []
+        y_vals = qdf["future_fit"].tolist() if not qdf.empty else []
+        
+        hover_text = []
+        for _, row in qdf.iterrows():
+            hover_text.append(
+                f"candidate_id: {row['candidate_id']}<br>"
+                f"rank: {row['rank']}<br>"
+                f"score: {row['score']}<br>"
+                f"hidden_gem: {row['hidden_gem']}"
+            )
+
+        fig.add_trace(
+            go.Scatter(
+                x=x_vals,
+                y=y_vals,
+                mode="markers",
+                marker=dict(
+                    color=QUADRANT_COLORS[quadrant],
+                    size=8,
+                ),
+                name=quadrant,
+                text=hover_text,
+                hoverinfo="text" if hover_text else "skip",
+            )
+        )
+
+    # Add Selected Candidate highlight
     if selected_id and selected_id in set(df["candidate_id"]):
         row = df[df["candidate_id"] == selected_id].iloc[0]
         fig.add_trace(
@@ -69,8 +76,13 @@ def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> g
                 hoverinfo="skip",
             )
         )
+
     fig.update_layout(
+        title="Talent Opportunity Map",
+        xaxis=dict(title="Current Fit", range=[20, 80]),
+        yaxis=dict(title="Future Fit", range=[20, 80]),
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
         margin=dict(l=40, r=20, t=60, b=40),
+        height=520,
     )
     return fig
