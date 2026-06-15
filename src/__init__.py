@@ -1,1 +1,1 @@
-"""TalentDNA ranking pipeline."""
+"""Redrob-Talent-Hire ranking pipeline."""

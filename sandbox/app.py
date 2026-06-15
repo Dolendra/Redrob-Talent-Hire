@@ -1,4 +1,4 @@
-"""HuggingFace Space entrypoint — launches TalentDNA dashboard."""
+"""HuggingFace Space entrypoint — launches Redrob-Talent-Hire dashboard."""
 
 import runpy
 from pathlib import Path

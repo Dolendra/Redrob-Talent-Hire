@@ -16,7 +16,7 @@ from src.scoring import set_offline_mode
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="TalentDNA ranker")
+    parser = argparse.ArgumentParser(description="Redrob-Talent-Hire ranker")
     parser.add_argument(
         "--candidates",
         type=Path,

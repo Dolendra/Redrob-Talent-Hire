@@ -1,4 +1,4 @@
-"""TalentDNA Streamlit dashboard — Talent Opportunity Map + contrast cards."""
+"""Redrob-Talent-Hire Streamlit dashboard — Talent Opportunity Map + contrast cards."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ from src.main import run_ranking
 from src.models import RankedCandidate
 from src.parser import load_job_description, load_weights
 
-st.set_page_config(page_title="TalentDNA", layout="wide")
+st.set_page_config(page_title="Redrob-Talent-Hire", layout="wide")
 
 RESULTS_PATH = ROOT / "output" / "results.json"
 SAMPLE_PATH = ROOT / "data" / "sample_candidates.json"
@@ -86,7 +86,7 @@ def load_precomputed_rows() -> list[dict] | None:
 
 def main() -> None:
     job = load_job_description(JD_PATH, load_weights(ROOT / "config" / "weights.json"))
-    st.title("TalentDNA")
+    st.title("Redrob-Talent-Hire")
     st.caption(f"Target role: **{job.title}**")
 
     pre = load_precomputed_rows()

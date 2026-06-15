@@ -1,5 +1,5 @@
 ---
-title: TalentDNA
+title: Redrob-Talent-Hire
 emoji: 🧬
 colorFrom: blue
 colorTo: purple
@@ -9,7 +9,7 @@ app_file: app.py
 pinned: false
 ---
 
-# TalentDNA — Redrob Hackathon v4
+# Redrob-Talent-Hire — Redrob Hackathon v4
 
 AI recruitment ranker that scores **Current Fit** vs **Future Fit**, surfaces **Hidden Gems**, and explains why keyword ATS would fail.
 
@@ -86,3 +86,25 @@ data/job_description.md
 data/sample_candidates.json
 data/embeddings/skill_vectors.npz
 ```
+
+## Push to GitHub and HuggingFace Space
+
+This repo uses **two remotes** (they are different destinations):
+
+| Remote | URL | Purpose |
+|--------|-----|---------|
+| `origin` | `github.com/Dolendra/Redrob-Talent-Hire` | Hackathon code repo |
+| `hf` | `huggingface.co/spaces/Dolendra/Redrob-Talent-Hire` | Live Streamlit demo |
+
+```powershell
+# Push to BOTH after each change:
+.\scripts\push-both.ps1 "describe your change"
+
+# Or manually:
+git add -A
+git commit -m "your message"
+git push origin main    # GitHub
+git push hf main        # HuggingFace Space
+```
+
+If `git push origin` only updated the Space before, that was because `origin` pointed at HuggingFace. It is now fixed to GitHub.

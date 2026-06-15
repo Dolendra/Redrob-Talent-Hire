@@ -1,4 +1,4 @@
-# Redrob Signals Reference (TalentDNA)
+# Redrob Signals Reference (Redrob-Talent-Hire)
 
 Each candidate includes a nested `redrob_signals` object with **22 required fields** (see [`config/candidate_schema.json`](../config/candidate_schema.json)).
 
@@ -9,7 +9,7 @@ Each candidate includes a nested `redrob_signals` object with **22 required fiel
 | `github_activity_score` | `-1` | No GitHub linked — exclude from confidence |
 | `offer_acceptance_rate` | `-1` | No offer history — exclude from behavioral averages |
 
-## Key signals used by TalentDNA
+## Key signals used by Redrob-Talent-Hire
 
 | Signal | Use in ranker |
 |--------|----------------|
@@ -23,7 +23,7 @@ Each candidate includes a nested `redrob_signals` object with **22 required fiel
 
 ## Trap classes (~dataset)
 
-| Trap | Detection in TalentDNA |
+| Trap | Detection in Redrob-Talent-Hire |
 |------|------------------------|
 | **Honeypots (~80)** | Impossible tenure math, expert skills with <6 months, timeline fractures → `detect_honeypot()` + −0.50 composite |
 | **Keyword stuffers** | Many skills, low avg `duration_months`, weak assessments → confidence discount + −0.08 composite |
@@ -34,4 +34,4 @@ Each candidate includes a nested `redrob_signals` object with **22 required fiel
 
 ## Signal fingerprint (twin detection)
 
-TalentDNA hashes rounded behavioral fields: response rates, profile views, applications, search appearances, notice period, completeness.
+Redrob-Talent-Hire hashes rounded behavioral fields: response rates, profile views, applications, search appearances, notice period, completeness.

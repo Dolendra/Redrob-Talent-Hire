@@ -38,7 +38,7 @@ ai_usage_summary: |
   No candidate data was sent to external LLM APIs during ranking.
 
 methodology_summary: |
-  TalentDNA ranks candidates with semantic embeddings (all-MiniLM-L6-v2) for Current Fit
+  Redrob-Talent-Hire ranks candidates with semantic embeddings (all-MiniLM-L6-v2) for Current Fit
   and Skill Transferability, plus Adaptability (36-month timeline tech adoption) and Career
   Velocity. Future Fit = 0.40·ST + 0.30·AS + 0.30·CV. Hidden Gem rewards high Future Fit
   with low Current Fit (ATS miss). Composite score blends fit, opportunity, confidence,

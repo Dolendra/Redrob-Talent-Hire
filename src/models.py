@@ -1,4 +1,4 @@
-"""Pydantic models for TalentDNA pipeline."""
+"""Pydantic models for Redrob-Talent-Hire pipeline."""
 
 from __future__ import annotations
 

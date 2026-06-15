@@ -265,7 +265,7 @@ def collect_valid_ids(path: Path) -> set[str]:
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="TalentDNA parser smoke test")
+    parser = argparse.ArgumentParser(description="Redrob-Talent-Hire parser smoke test")
     parser.add_argument("--candidates", type=Path, default=Path("data/candidates.jsonl"))
     parser.add_argument("--jd", type=Path, default=Path("data/job_description.md"))
     parser.add_argument("--weights", type=Path, default=Path("config/weights.json"))

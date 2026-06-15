@@ -134,11 +134,11 @@ def ascii_decision_card(
     width = 62
     lines = [
         "+" + "-" * width + "+",
-        f"| TALENTDNA DECISION CARD  Rank #{rank:<3}  {record.candidate_id:<18}|",
+        f"| REDROB-TALENT-HIRE DECISION CARD  Rank #{rank:<3}  {record.candidate_id:<18}|",
         "+" + "-" * width + "+",
         f"| {record.profile.anonymized_name[:28]:<28} | {record.profile.current_title[:28]:<28}|",
         "+" + "-" * width + "+",
-        "| WHY ATS FAILED              | WHY TALENTDNA SELECTED       |",
+        "| WHY ATS FAILED              | WHY REDROB-TALENT-HIRE SELECTED |",
         f"| Current Fit: {bundle.s_current:5.1f}%           | Future Fit:  {bundle.future_fit:5.1f}%          |",
         f"| Missing: {', '.join(missing)[:24]:<24} | Hidden Gem: {bundle.hidden_gem:5.1f}           |",
         f"| Quadrant: {bundle.quadrant:<17}| Onboarding: ~{bundle.onboarding_weeks:<14}|",

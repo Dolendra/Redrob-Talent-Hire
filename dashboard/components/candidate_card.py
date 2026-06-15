@@ -1,4 +1,4 @@
-"""ATS Failed vs TalentDNA Selected contrast card."""
+"""ATS Failed vs Redrob-Talent-Hire Selected contrast card."""
 
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ def render_contrast_card(record: CandidateRecord, bundle: ScoreBundle, reasoning
             st.write("Keyword overlap looks strong — ATS might pass this profile.")
 
     with col_b:
-        st.markdown("#### Why TalentDNA Selected")
+        st.markdown("#### Why Redrob-Talent-Hire Selected")
         sel = card["talentdna_selected"]
         st.metric("Future Fit", f"{sel['future_fit']:.0f}%")
         st.metric("Hidden Gem Score", f"{sel['hidden_gem']:.1f}")
