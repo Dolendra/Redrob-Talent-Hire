@@ -93,7 +93,9 @@ def ensure_skill_vectors(
     load_skill_vectors(cache_path)
     missing = {_normalize_skill(s) for s in skills} - set(_SKILL_VECTORS.keys())
     if missing:
-        if offline:
+        local_model_path = Path("data/embeddings/model")
+        has_local_model = local_model_path.exists() and (local_model_path / "config.json").exists()
+        if offline and not has_local_model:
             raise RuntimeError(
                 f"Missing {len(missing)} skill vectors in {cache_path} (offline mode). "
                 f"Examples: {sorted(missing)[:5]}. "

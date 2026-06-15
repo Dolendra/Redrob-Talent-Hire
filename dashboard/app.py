@@ -103,11 +103,20 @@ def main() -> None:
 
     if uploaded is not None:
         tmp = Path(tempfile.mkdtemp()) / "upload.jsonl"
-        tmp.write_bytes(uploaded.read())
-        n = len(tmp.read_text(encoding="utf-8").strip().splitlines())
+        raw_bytes = uploaded.read()
+        try:
+            content = raw_bytes.decode("utf-8")
+        except UnicodeDecodeError:
+            content = raw_bytes.decode("latin-1")
+        
+        lines = [line for line in content.strip().splitlines() if line.strip()]
+        n = len(lines)
         if n > 100:
-            st.error("Sandbox limit: 100 candidates.")
-            st.stop()
+            st.sidebar.warning(f"Sandbox limit: 100 candidates. The uploaded file has been truncated from {n} to the first 100 candidates.")
+            lines = lines[:100]
+            n = 100
+        
+        tmp.write_text("\n".join(lines) + "\n", encoding="utf-8")
         serialized = rank_pool(str(tmp), min(100, n))
     elif use_pre and pre:
         df = pd.DataFrame(
