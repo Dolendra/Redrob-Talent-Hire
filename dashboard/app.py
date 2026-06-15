@@ -111,13 +111,13 @@ def main() -> None:
         
         lines = [line for line in content.strip().splitlines() if line.strip()]
         n = len(lines)
-        if n > 100:
-            st.sidebar.warning(f"Sandbox limit: 100 candidates. The uploaded file has been truncated from {n} to the first 100 candidates.")
-            lines = lines[:100]
-            n = 100
+        if n > 2000:
+            st.sidebar.warning(f"Sandbox limit: 2000 candidates. The uploaded file has been truncated from {n} to the first 2000 candidates.")
+            lines = lines[:2000]
+            n = 2000
         
         tmp.write_text("\n".join(lines) + "\n", encoding="utf-8")
-        serialized = rank_pool(str(tmp), min(100, n))
+        serialized = rank_pool(str(tmp), min(2000, n))
     elif use_pre and pre:
         df = pd.DataFrame(
             [
