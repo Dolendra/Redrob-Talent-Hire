@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TalentDNA — Redrob Hackathon v4
 
 AI recruitment ranker that scores **Current Fit** vs **Future Fit**, surfaces **Hidden Gems**, and explains why keyword ATS would fail.
@@ -116,3 +117,24 @@ scripts/precompute_embeddings.py
 config/weights.json
 data/job_description.md
 ```
+=======
+---
+title: Redrob Talent Hire
+emoji: 🚀
+colorFrom: red
+colorTo: red
+sdk: docker
+app_port: 8501
+tags:
+- streamlit
+pinned: false
+short_description: Streamlit template space
+---
+
+# Welcome to Streamlit!
+
+Edit `/src/streamlit_app.py` to customize this app to your heart's desire. :heart:
+
+If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
+forums](https://discuss.streamlit.io).
+>>>>>>> 150caada6feffb818d2b7c82de956b2d81ce4908
