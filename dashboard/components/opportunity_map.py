@@ -37,9 +37,20 @@ def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> g
         print(f"Quadrant: {quadrant}")
         print(qdf[["s_current", "future_fit"]].head())
 
+        hover_text = []
+        for _, row in qdf.iterrows():
+            hover_text.append(
+                f"quadrant={quadrant}<br>"
+                f"Current Fit={row['s_current']:.2f}<br>"
+                f"Future Fit={row['future_fit']:.2f}<br>"
+                f"candidate_id={row['candidate_id']}<br>"
+                f"rank={row['rank']}<br>"
+                f"score={row['score']}<br>"
+                f"hidden_gem={row['hidden_gem']:.2f}"
+            )
+
         x_vals = qdf["s_current"].tolist() if not qdf.empty else []
         y_vals = qdf["future_fit"].tolist() if not qdf.empty else []
-        ids = qdf["candidate_id"].tolist() if not qdf.empty else []
 
         fig.add_trace(
             go.Scatter(
@@ -47,7 +58,8 @@ def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> g
                 y=y_vals,
                 mode="markers",
                 name=quadrant,
-                text=ids,
+                text=hover_text,
+                hoverinfo="text" if hover_text else "skip",
                 marker=dict(
                     size=12,
                     color=QUADRANT_COLORS[quadrant],
@@ -57,13 +69,6 @@ def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> g
                         width=1,
                     ),
                 ),
-                hovertemplate=(
-                    "<b>%{text}</b><br>"
-                    "Current Fit: %{x:.2f}<br>"
-                    "Future Fit: %{y:.2f}<br>"
-                    "<extra></extra>"
-                ) if ids else None,
-                hoverinfo="text" if ids else "skip",
             )
         )
 
