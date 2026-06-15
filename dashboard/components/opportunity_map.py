@@ -19,6 +19,10 @@ def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> g
 
     import streamlit as st
 
+    st.error("OPPORTUNITY MAP FILE EXECUTED")
+
+    import streamlit as st
+
     st.write("Rows in opportunity map:", len(df))
     
     st.dataframe(
