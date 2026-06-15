@@ -27,6 +27,7 @@ def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> g
         labels={"s_current": "Current Fit", "future_fit": "Future Fit"},
         title="Talent Opportunity Map",
         height=520,
+        render_mode="svg",
     )
     fig.add_hline(y=50, line_dash="dash", line_color="#cbd5e1", line_width=1)
     fig.add_vline(x=50, line_dash="dash", line_color="#cbd5e1", line_width=1)
