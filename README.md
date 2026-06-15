@@ -44,8 +44,11 @@ python scripts/precompute_embeddings.py --candidates data/candidates.jsonl --sav
 # Rank top 100 (offline, no network):
 python rank.py --candidates candidates.jsonl --out team_xxx.csv --validate
 
-# Dashboard locally:
-streamlit run dashboard/app.py
+# Dashboard locally (automated script to avoid Windows OpenBLAS issues):
+.\run-app.ps1
+
+# Or manually:
+# $env:OPENBLAS_NUM_THREADS="1"; $env:OMP_NUM_THREADS="1"; streamlit run app.py
 ```
 
 ## Formulas

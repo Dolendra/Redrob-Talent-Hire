@@ -2,6 +2,13 @@
 
 from __future__ import annotations
 
+import os
+# Prevent OpenBLAS memory allocation errors on Windows or high-thread systems
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+os.environ["NUMEXPR_NUM_THREADS"] = "1"
+
 import json
 import sys
 import tempfile
