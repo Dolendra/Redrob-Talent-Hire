@@ -1,0 +1,53 @@
+team_name: "Advait"
+
+primary_contact:
+  name: "Nelluri Dolendra Sai Teja"
+  email: "dolendracse@gmail.com"
+  phone: "+91-9494241849"
+
+team_members:
+  - name: "Nelluri Dolendra Sai Teja"
+    email: "dolendracse@gmail.com"
+    role: "ML Engineer,Team Lead"
+  - name: "Kandi Santhosh"
+    email: "ndst4321@gmail.com"
+    role: "Data Engineer"
+
+github_repo: "https://github.com/Dolendra/Redrob-Talent-Hire"
+sandbox_link: "https://huggingface.co/spaces/Dolendra/Redrob-Talent-Hire"
+
+reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./submission.csv"
+
+compute:
+  platform: "Local Windows / Linux"
+  cpu_cores: 8
+  ram_gb: 16
+  python_version: "3.11"
+  os: "Windows 11"
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: true
+  pre_computation_time_minutes: 15
+
+ai_tools_used:
+  - "Cursor"
+  - "Claude"
+
+ai_usage_summary: |
+  Used Cursor/Claude for architecture, implementation, and code review.
+  No candidate data was sent to external LLM APIs during ranking.
+
+methodology_summary: |
+  TalentDNA ranks candidates with semantic embeddings (all-MiniLM-L6-v2) for Current Fit
+  and Skill Transferability, plus Adaptability (36-month timeline tech adoption) and Career
+  Velocity. Future Fit = 0.40·ST + 0.30·AS + 0.30·CV. Hidden Gem rewards high Future Fit
+  with low Current Fit (ATS miss). Composite score blends fit, opportunity, confidence,
+  location, experience band, hiring risk, JD disqualifiers, and honeypot penalties.
+  Two-pass streaming over 100K JSONL with heap top-100; contrastive fact-slot reasoning.
+
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true

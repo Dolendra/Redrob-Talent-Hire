@@ -1,0 +1,179 @@
+{
+  "embedding_model": "all-MiniLM-L6-v2",
+  "title_weights": {
+    "junior": 1,
+    "associate": 1,
+    "mid": 2,
+    "se_ii": 2,
+    "senior": 3,
+    "lead": 4,
+    "principal": 4,
+    "staff": 4
+  },
+  "default_title_weight": 2,
+  "risk_weights": {
+    "short_tenure_months": 12,
+    "short_tenure_penalty": 20,
+    "gap_months": 6,
+    "gap_penalty": 15,
+    "response_weight": 30,
+    "interview_weight": 35
+  },
+  "future_fit_weights": {
+    "st": 0.40,
+    "as": 0.30,
+    "cv": 0.30
+  },
+  "composite_weights": {
+    "s_current": 0.12,
+    "future_fit": 0.32,
+    "hidden_gem": 0.22,
+    "opportunity": 0.12,
+    "confidence": 0.08,
+    "location_fit": 0.05,
+    "experience_band": 0.05,
+    "career_ir_signal": 0.10,
+    "risk": 0.15,
+    "honeypot": 0.35
+  },
+  "hidden_gem_threshold": {
+    "g_min": 40,
+    "s_current_max": 60,
+    "future_fit_min": 70
+  },
+  "confidence_weights": {
+    "profile_completeness": 0.20,
+    "timeline_depth": 0.15,
+    "skill_assessments": 0.20,
+    "recruiter_response_rate": 0.20,
+    "last_active_recency": 0.15,
+    "open_to_work": 0.10
+  },
+  "jd_skill_seeds": {
+    "required": [
+      "embeddings",
+      "sentence-transformers",
+      "BGE",
+      "E5",
+      "retrieval",
+      "vector database",
+      "Pinecone",
+      "Weaviate",
+      "Qdrant",
+      "Milvus",
+      "OpenSearch",
+      "Elasticsearch",
+      "FAISS",
+      "hybrid search",
+      "Python",
+      "NDCG",
+      "MRR",
+      "MAP",
+      "ranking evaluation",
+      "A/B testing"
+    ],
+    "preferred": [
+      "LoRA",
+      "QLoRA",
+      "PEFT",
+      "fine-tuning",
+      "learning to rank",
+      "XGBoost",
+      "recruiting",
+      "HR-tech",
+      "distributed systems",
+      "open source"
+    ]
+  },
+  "skill_clusters": {
+    "embeddings_retrieval": [
+      "embeddings",
+      "sentence-transformers",
+      "BGE",
+      "E5",
+      "dense retrieval",
+      "hybrid retrieval",
+      "BM25"
+    ],
+    "vector_infra": [
+      "FAISS",
+      "Milvus",
+      "Pinecone",
+      "Weaviate",
+      "Qdrant",
+      "OpenSearch",
+      "Elasticsearch",
+      "vector database"
+    ],
+    "ranking_eval": [
+      "NDCG",
+      "MRR",
+      "MAP",
+      "A/B testing",
+      "learning to rank",
+      "XGBoost"
+    ],
+    "ml_production": [
+      "MLOps",
+      "fine-tuning",
+      "LoRA",
+      "PEFT",
+      "recommendation systems",
+      "RAG",
+      "Prompt Engineering"
+    ]
+  },
+  "skill_adjacency": {
+    "Kubernetes": ["Docker", "Helm", "Terraform", "container", "K8s"],
+    "FAISS": ["Milvus", "vector database", "embeddings", "OpenSearch"],
+    "NDCG": ["MAP", "MRR", "ranking evaluation", "A/B testing"],
+    "sentence-transformers": ["BGE", "E5", "embeddings", "dense retrieval"]
+  },
+  "consulting_firms": [
+    "TCS",
+    "Infosys",
+    "Wipro",
+    "Accenture",
+    "Cognizant",
+    "Capgemini",
+    "Mindtree"
+  ],
+  "ml_title_keywords": [
+    "engineer",
+    "scientist",
+    "ml",
+    "ai",
+    "data",
+    "research",
+    "developer",
+    "architect",
+    "analyst"
+  ],
+  "disqualifier_penalties": {
+    "title_chaser": 0.15,
+    "consulting_only": 0.20,
+    "role_skill_mismatch": 0.35,
+    "non_technical_keyword_trap": 0.30,
+    "keyword_stuffer": 0.20,
+    "tier5_plain_language": 0.15,
+    "cv_only": 0.10,
+    "inactive": 0.18
+  },
+  "india_preferred_locations": [
+    "pune",
+    "noida",
+    "hyderabad",
+    "mumbai",
+    "delhi",
+    "gurgaon",
+    "gurugram",
+    "bangalore",
+    "bengaluru",
+    "chennai"
+  ],
+  "experience_band": {
+    "min": 5,
+    "max": 9
+  },
+  "hackathon_meta_marker": "Final note for the participants"
+}

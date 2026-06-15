@@ -1,0 +1,16 @@
+﻿.venv/
+venv/
+env/
+data/candidates.jsonl
+data/candidates.jsonl.gz
+candidates.jsonl
+candidates.jsonl.gz
+data/embeddings/model/
+__pycache__/
+*.pyc
+.pytest_cache/
+output/
+submission.csv
+team_*.csv
+*.egg-info/
+.DS_Store
