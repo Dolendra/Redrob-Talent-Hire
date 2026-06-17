@@ -8238,5 +8238,82 @@
       "verified_phone": true,
       "linkedin_connected": false
     }
+  },
+  {
+    "candidate_id": "CAND_6050616",
+    "profile": {
+      "anonymized_name": "Ingested Candidate",
+      "headline": "Software Engineer with 3.0 years of experience",
+      "summary": "Nelluri Dolendra Sai Teja\n\u2642\u00b6ap-\u00b6arker-altHyderabad, India\n\u2642phone-alt+91-9494241849|/envel\u2322pedolendracse@gmail.com|/githubGitHub|/linkedinLinkedIn|/gl\u2322bePortfolio\nObjective\nMotivated Computer Science undergraduate at RGUKT Basar with strong foundations in full-stack development, backend\nsystems, and scalable web applications. Experienced in building production-style MERN and AI-powered applications with\nmodern development workflows. Seeking Software Engineering or Full Stack opportunities to buil",
+      "location": "Bangalore",
+      "country": "India",
+      "years_of_experience": 3.0,
+      "current_title": "Software Engineer",
+      "current_company": "Enterprise Corporation",
+      "current_company_size": "51-200",
+      "current_industry": "Information Technology"
+    },
+    "skills": [
+      {
+        "name": "Pinecone",
+        "proficiency": "intermediate",
+        "endorsements": 3,
+        "duration_months": 24
+      },
+      {
+        "name": "Python",
+        "proficiency": "intermediate",
+        "endorsements": 3,
+        "duration_months": 24
+      },
+      {
+        "name": "retrieval",
+        "proficiency": "intermediate",
+        "endorsements": 3,
+        "duration_months": 24
+      }
+    ],
+    "career_history": [
+      {
+        "company": "Enterprise Corporation",
+        "title": "Software Engineer",
+        "start_date": "2022-01-01",
+        "end_date": "2024-06-01",
+        "duration_months": 36,
+        "is_current": true,
+        "industry": "Information Technology",
+        "company_size": "51-200",
+        "description": "Nelluri Dolendra Sai Teja\n\u2642\u00b6ap-\u00b6arker-altHyderabad, India\n\u2642phone-alt+91-9494241849|/envel\u2322pedolendracse@gmail.com|/githubGitHub|/linkedinLinkedIn|/gl\u2322bePortfolio\nObjective\nMotivated Computer Science undergraduate at RGUKT Basar with strong foundations in full-stack development, backend\nsystems, and scalable web applications. Experienced in building production-style MERN and AI-powered applications with\nmodern development workflows. Seeking Software Engineering or Full Stack opportunities to build reliable systems and\ncontribute to impactful products at scale.\nEducation\nRajiv Gandhi University of Knowledge T echnologies, Basar2023 \u2013 2027\nB.Tech in Computer Science\u2014 CGPA: 9.30/10\nRajiv Gandhi University of Knowledge T echnologies, Basar2021 \u2013 2023\nPre-University Course\u2014 CGPA: 9.88/10\nNTR Model School 2020 \u2013 2021\nClass X - CBSE\u2014Marks : 581/600\nExperience\nInfosys Springboard Dec 2025 \u2013 Feb 2026\nAI Intern /github|Remote\n\u2013Worked onAI-powered Market T rend and Consumer Sentiment F orecasting Systemfor analyzing consumer\nbehavior and generating business insights using NLP, RAG pipelines, and LLM-based analysis.\n\u2013Developed scalable data ingestion, preprocessing, semantic retrieval, and vector search workflows usingLangChain,\nPinecone, and Groq LLMs.\n\u2013Built interactive analytics dashboards and real-time sentiment monitoring pipelines for trend visualization and insight\ngeneration from unstructured datasets.\nProjects\nE-Commerce Platform for Custom Stitching|React, Node.js, Express, MongoDB, Tailwind CSS|/github2026\n\u2013Implemented authentication, product management, cart, and order processing workflows with responsive user interfaces\nand scalable backend architecture.\n\u2013Developed REST APIs and integrated frontend-backend communication using React, Node.js, Express, MongoDB, and\nTailwind CSS.\nAgriSphere - Smart Agriculture Platform|React, Firebase, REST APIs|/github2025\n\u2013Implemented community interaction modules, financial tracking features, and responsive frontend workflows using "
+      }
+    ],
+    "education": [],
+    "redrob_signals": {
+      "profile_completeness_score": 90.0,
+      "signup_date": "2022-01-01",
+      "last_active_date": "2026-06-15",
+      "open_to_work_flag": true,
+      "profile_views_received_30d": 150,
+      "applications_submitted_30d": 8,
+      "recruiter_response_rate": 0.95,
+      "avg_response_time_hours": 1.5,
+      "skill_assessment_scores": {},
+      "connection_count": 250,
+      "endorsements_received": 15,
+      "notice_period_days": 30,
+      "expected_salary_range_inr_lpa": {
+        "min": 15.0,
+        "max": 25.0
+      },
+      "preferred_work_mode": "hybrid",
+      "willing_to_relocate": true,
+      "github_activity_score": 75.0,
+      "search_appearance_30d": 45,
+      "saved_by_recruiters_30d": 12,
+      "interview_completion_rate": 1.0,
+      "offer_acceptance_rate": 0.9,
+      "verified_email": true,
+      "verified_phone": true,
+      "linkedin_connected": true
+    }
   }
 ]

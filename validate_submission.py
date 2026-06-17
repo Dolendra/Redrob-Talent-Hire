@@ -147,11 +147,17 @@ def validate_submission(csv_path):
 
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python validate_submission.py <participant_id>.csv")
+    csv_file = None
+    if len(sys.argv) == 2:
+        csv_file = sys.argv[1]
+    elif len(sys.argv) == 3 and sys.argv[1] == "--csv":
+        csv_file = sys.argv[2]
+
+    if not csv_file:
+        print("Usage: python validate_submission.py [--csv] <participant_id>.csv")
         sys.exit(1)
 
-    errors = validate_submission(sys.argv[1])
+    errors = validate_submission(csv_file)
     if errors:
         print(f"Validation failed ({len(errors)} issue(s)):\n")
         for e in errors:

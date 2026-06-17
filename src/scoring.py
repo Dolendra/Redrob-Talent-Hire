@@ -50,7 +50,7 @@ def _get_model(model_name: str):
 
         local = Path("data/embeddings/model")
         if local.exists() and (local / "config.json").exists():
-            _MODEL = SentenceTransformer(str(local))
+            _MODEL = SentenceTransformer(str(local), local_files_only=True)
         elif _OFFLINE:
             raise RuntimeError(
                 "Offline ranking requires data/embeddings/model/ or precomputed "
@@ -111,12 +111,15 @@ def ensure_skill_vectors(
     return _SKILL_VECTORS
 
 
-def _vec(skill: str, vectors: dict[str, np.ndarray], model_name: str) -> Optional[np.ndarray]:
+def _vec(skill: str, vectors: dict[str, np.ndarray], model_name: str) -> np.ndarray:
     key = _normalize_skill(skill)
     if key in vectors:
         return vectors[key]
     if _OFFLINE:
-        return None
+        dim = 384
+        if vectors:
+            dim = len(next(iter(vectors.values())))
+        return np.zeros(dim, dtype=np.float32)
     model = _get_model(model_name)
     v = model.encode([skill], normalize_embeddings=True)[0]
     vectors[key] = np.asarray(v, dtype=np.float32)

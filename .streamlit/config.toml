@@ -1,3 +1,4 @@
 [server]
 enableXsrfProtection = false
-maxUploadSize = 200
+maxUploadSize = 600
+headless = true

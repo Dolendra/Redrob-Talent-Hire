@@ -57,12 +57,11 @@ compute:
 # may verify these declarations against your code; declarations that contradict
 # your code or your interview are flagged.
 ai_tools_used:
-  - "Claude"        # e.g. for architecture discussion, code review
-  - "GitHub Copilot"  # e.g. for autocomplete
-  - "Cursor"         # For building code
-  - "Antigravity IDE" # For building code
-  - "Gemini"        # For Ideation
-  - "ChatGPT"       # For Brainstorming
+  - "Cursor"
+  - "Claude"
+  - "ChatGPT"
+  - "Gemini"
+  - "Antigravity IDE"
 
 ai_usage_summary: |
   Briefly describe how AI tools were used. Examples:

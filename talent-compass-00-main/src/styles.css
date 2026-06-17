@@ -1,0 +1,188 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Fonts are loaded via <link> tags in __root.tsx head. */
+
+@theme inline {
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand-specific semantic tokens */
+  --color-gem: var(--gem);
+  --color-gem-foreground: var(--gem-foreground);
+  --color-safe: var(--safe);
+  --color-stretch: var(--stretch);
+  --color-pass: var(--pass);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-grid-line: var(--grid-line);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+}
+
+/* ---------- Dark command-center theme (default) ---------- */
+:root {
+  --radius: 0.5rem;
+
+  --background: oklch(0.16 0.012 250);
+  --foreground: oklch(0.96 0.005 240);
+
+  --surface-1: oklch(0.2 0.015 250);
+  --surface-2: oklch(0.24 0.018 250);
+  --grid-line: oklch(0.3 0.018 250 / 0.5);
+
+  --card: oklch(0.2 0.015 250);
+  --card-foreground: oklch(0.96 0.005 240);
+
+  --popover: oklch(0.22 0.016 250);
+  --popover-foreground: oklch(0.96 0.005 240);
+
+  --primary: oklch(0.78 0.15 195);          /* cyan/teal - data primary */
+  --primary-foreground: oklch(0.15 0.02 240);
+
+  --secondary: oklch(0.28 0.02 250);
+  --secondary-foreground: oklch(0.96 0.005 240);
+
+  --muted: oklch(0.26 0.018 250);
+  --muted-foreground: oklch(0.7 0.02 250);
+
+  --accent: oklch(0.32 0.04 220);
+  --accent-foreground: oklch(0.96 0.005 240);
+
+  --destructive: oklch(0.65 0.22 22);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(0.3 0.018 250 / 0.6);
+  --input: oklch(0.26 0.018 250);
+  --ring: oklch(0.78 0.15 195);
+
+  /* Signature brand tokens */
+  --gem: oklch(0.83 0.17 78);                /* electric amber for hidden gems */
+  --gem-foreground: oklch(0.18 0.02 60);
+  --safe: oklch(0.78 0.17 155);              /* green */
+  --stretch: oklch(0.78 0.15 50);            /* warm orange */
+  --pass: oklch(0.55 0.04 250);              /* muted gray-blue */
+
+  --chart-1: oklch(0.78 0.15 195);
+  --chart-2: oklch(0.83 0.17 78);
+  --chart-3: oklch(0.78 0.17 155);
+  --chart-4: oklch(0.7 0.18 320);
+  --chart-5: oklch(0.65 0.22 22);
+
+  --sidebar: oklch(0.13 0.012 250);
+  --sidebar-foreground: oklch(0.85 0.01 240);
+  --sidebar-primary: oklch(0.78 0.15 195);
+  --sidebar-primary-foreground: oklch(0.15 0.02 240);
+  --sidebar-accent: oklch(0.22 0.016 250);
+  --sidebar-accent-foreground: oklch(0.96 0.005 240);
+  --sidebar-border: oklch(0.25 0.018 250 / 0.6);
+  --sidebar-ring: oklch(0.78 0.15 195);
+
+  /* Gradients & shadows */
+  --gradient-gem: linear-gradient(135deg, oklch(0.83 0.17 78), oklch(0.7 0.2 50));
+  --gradient-primary: linear-gradient(135deg, oklch(0.78 0.15 195), oklch(0.65 0.18 220));
+  --gradient-surface: linear-gradient(180deg, oklch(0.22 0.016 250), oklch(0.18 0.012 250));
+  --shadow-glow-primary: 0 0 32px -8px oklch(0.78 0.15 195 / 0.5);
+  --shadow-glow-gem: 0 0 32px -8px oklch(0.83 0.17 78 / 0.55);
+  --shadow-card: 0 1px 0 oklch(1 0 0 / 0.04) inset, 0 8px 24px -12px oklch(0 0 0 / 0.6);
+}
+
+/* No light mode for this product — judges see the command-center theme */
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01", "ss03";
+  }
+  body {
+    background-image:
+      radial-gradient(circle at 0% 0%, oklch(0.78 0.15 195 / 0.06), transparent 40%),
+      radial-gradient(circle at 100% 0%, oklch(0.83 0.17 78 / 0.04), transparent 40%);
+    background-attachment: fixed;
+  }
+  .font-display { font-family: var(--font-display); }
+  .font-mono { font-family: var(--font-mono); }
+
+  /* Subtle scrollbars */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.3 0.018 250 / 0.6);
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: oklch(0.4 0.02 250 / 0.8); }
+}
+
+@layer utilities {
+  .text-gradient-gem {
+    background: var(--gradient-gem);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .surface-card {
+    background: var(--gradient-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card);
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}

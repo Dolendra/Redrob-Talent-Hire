@@ -51,6 +51,7 @@ def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> g
 
         x_vals = qdf["s_current"].tolist() if not qdf.empty else []
         y_vals = qdf["future_fit"].tolist() if not qdf.empty else []
+        c_ids = qdf["candidate_id"].tolist() if not qdf.empty else []
 
         fig.add_trace(
             go.Scatter(
@@ -60,6 +61,7 @@ def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> g
                 name=quadrant,
                 text=hover_text,
                 hoverinfo="text" if hover_text else "skip",
+                customdata=c_ids,
                 marker=dict(
                     size=12,
                     color=QUADRANT_COLORS[quadrant],
@@ -164,3 +166,49 @@ def build_opportunity_map(df: pd.DataFrame, selected_id: str | None = None) -> g
     )
 
     return fig
+
+def build_tree_opportunity_map(df: pd.DataFrame) -> go.Figure:
+    import plotly.express as px
+    df = df.copy()
+    
+    # Handle empty DataFrame case safely
+    if df.empty:
+        import plotly.graph_objects as go
+        fig = go.Figure()
+        fig.add_annotation(
+            text="No candidates available to display in Tree Opportunity Map",
+            showarrow=False,
+            font=dict(size=14, color="#94a3b8")
+        )
+        return fig
+        
+    df["Future Fit Score"] = df["future_fit"].round(1)
+    df["Current Fit Score"] = df["s_current"].round(1)
+    df["Rank"] = df["rank"]
+    
+    fig = px.treemap(
+        df,
+        path=["quadrant", "title", "name"],
+        values="future_fit",
+        color_discrete_sequence=["#1e293b"],
+        custom_data=["Rank", "Current Fit Score", "Future Fit Score", "candidate_id"]
+    )
+    
+    fig.update_traces(
+        hovertemplate="<b>%{label}</b><br><br>"
+                      "Rank: #%{customdata[0]}<br>"
+                      "Candidate ID: %{customdata[3]}<br>"
+                      "Current Fit Score: %{customdata[1]}%<br>"
+                      "Future Fit Score: %{customdata[2]}%<br>"
+                      "<extra></extra>"
+    )
+    
+    fig.update_layout(
+        margin=dict(t=40, l=10, r=10, b=10),
+        height=650,
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="#ffffff")
+    )
+    return fig
+

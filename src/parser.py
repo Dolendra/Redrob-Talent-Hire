@@ -132,6 +132,94 @@ def _section_slice(text: str, start_markers: list[str], end_markers: list[str]) 
 def load_job_description(path: Path, weights: Optional[dict] = None) -> JobDescription:
     weights = weights or {}
     raw = _read_jd_text(path)
+    
+    # Try parsing as JSON first
+    raw_stripped = raw.strip()
+    if raw_stripped.startswith("{") and raw_stripped.endswith("}"):
+        try:
+            data = json.loads(raw_stripped)
+            title = (
+                data.get("role") or 
+                data.get("title") or 
+                data.get("job_title") or 
+                data.get("position") or 
+                "Associate Software Engineer"
+            ).strip()
+            
+            req_skills = []
+            pref_skills = []
+            
+            reqs = data.get("requirements", {})
+            if isinstance(reqs, dict):
+                req_skills = (
+                    reqs.get("required_skills") or 
+                    reqs.get("preferred_skills") or 
+                    data.get("required_skills") or 
+                    data.get("skills") or 
+                    []
+                )
+                pref_skills = (
+                    reqs.get("nice_to_have_skills") or 
+                    reqs.get("preferred_skills") or 
+                    data.get("preferred_skills") or 
+                    []
+                )
+            elif isinstance(reqs, str):
+                pass
+                
+            if isinstance(req_skills, str):
+                req_skills = [s.strip() for s in req_skills.split(",") if s.strip()]
+            if isinstance(pref_skills, str):
+                pref_skills = [s.strip() for s in pref_skills.split(",") if s.strip()]
+                
+            req_skills = [str(s) for s in req_skills]
+            pref_skills = [str(s) for s in pref_skills]
+            
+            min_exp = None
+            max_exp = None
+            
+            desc_text = str(data.get("description", ""))
+            reqs_text = json.dumps(data.get("requirements", ""))
+            full_search_text = f"{title} {desc_text} {reqs_text}"
+            
+            exp_m = EXPERIENCE_RE.search(full_search_text)
+            if exp_m:
+                min_exp = float(exp_m.group(1))
+                max_exp = float(exp_m.group(2))
+            else:
+                single_exp_m = re.search(r"(\d+)\+?\s*years?", full_search_text, re.IGNORECASE)
+                if single_exp_m:
+                    min_exp = float(single_exp_m.group(1))
+                    max_exp = min_exp + 4.0
+            
+            if "fresher" in full_search_text.lower() or "entry-level" in full_search_text.lower() or "associate" in full_search_text.lower():
+                if min_exp is None:
+                    min_exp = 0.0
+                if max_exp is None:
+                    max_exp = 2.0
+                    
+            locations = []
+            loc_val = data.get("location") or data.get("locations")
+            if loc_val:
+                if isinstance(loc_val, list):
+                    locations = [str(l).strip() for l in loc_val]
+                else:
+                    locations = [l.strip() for l in str(loc_val).split(",") if l.strip()]
+                    
+            return JobDescription(
+                title=title,
+                raw_text=raw,
+                ranking_text=desc_text,
+                hackathon_meta="",
+                required_skills=sorted(list(set(req_skills))),
+                preferred_skills=sorted(list(set(pref_skills) - set(req_skills))),
+                min_experience_years=min_exp,
+                max_experience_years=max_exp,
+                locations=locations,
+            )
+        except Exception as e:
+            print(f"Warning: JSON parsing failed: {e}. Falling back to standard markdown/regex parser.")
+
     marker = weights.get("hackathon_meta_marker", "Final note for the participants")
     ranking_text, hackathon_meta = _split_hackathon_meta(raw, marker)
 
@@ -156,13 +244,29 @@ def load_job_description(path: Path, weights: Optional[dict] = None) -> JobDescr
         SECTION_MARKERS["disqualifiers"] + ["on location", "the vibe check"],
     )
 
-    required: set[str] = set(weights.get("jd_skill_seeds", {}).get("required", []))
-    preferred: set[str] = set(weights.get("jd_skill_seeds", {}).get("preferred", []))
+    # Only seed with weights jd_skill_seeds if the JD is related to AI/ML/Search
+    is_ml_job = any(
+        re.search(r"\b" + re.escape(k) + r"\b", title.lower())
+        for k in ["ai", "ml", "search", "retrieval", "machine learning", "founding team", "recommender"]
+    )
+    required: set[str] = set(weights.get("jd_skill_seeds", {}).get("required", [])) if is_ml_job else set()
+    preferred: set[str] = set(weights.get("jd_skill_seeds", {}).get("preferred", [])) if is_ml_job else set()
+
 
     for bullet in _extract_bullets(req_section):
-        required.update(_harvest_skill_tokens(bullet))
+        tokens = _harvest_skill_tokens(bullet)
+        if tokens:
+            required.update(tokens)
+        elif len(bullet) < 30 and len(bullet.split()) < 4:
+            required.add(bullet.strip())
+            
     for bullet in _extract_bullets(pref_section):
-        preferred.update(_harvest_skill_tokens(bullet))
+        tokens = _harvest_skill_tokens(bullet)
+        if tokens:
+            preferred.update(tokens)
+        elif len(bullet) < 30 and len(bullet.split()) < 4:
+            preferred.add(bullet.strip())
+
 
     loc_m = re.search(r"Location:\s*(.+?)(?:\n|$)", ranking_text, re.IGNORECASE)
     locations = []
@@ -243,12 +347,25 @@ def iter_candidates(
             yield normalize_candidate(raw)
 
 
-def load_candidates_json(path: Path) -> list[CandidateRecord]:
-    """Load pretty-printed JSON array (sample_candidates.json)."""
-    data = json.loads(Path(path).read_text(encoding="utf-8"))
-    if isinstance(data, dict):
-        data = [data]
-    return [normalize_candidate(r) for r in data]
+def load_candidates_json(path: Path) -> Iterator[CandidateRecord]:
+    """Load pretty-printed JSON array (sample_candidates.json) memory-safely using ijson."""
+    import ijson
+    try:
+        with open(path, "rb") as f:
+            for item in ijson.items(f, "item"):
+                yield normalize_candidate(item)
+    except Exception:
+        # Fallback to standard json loading for small files or custom formats if ijson fails
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.loads(f.read())
+            if isinstance(data, dict):
+                yield normalize_candidate(data)
+            elif isinstance(data, list):
+                for item in data:
+                    yield normalize_candidate(item)
+        except Exception as e:
+            raise ValueError(f"Failed to stream and parse JSON candidates file {path}: {e}")
 
 
 def count_candidates(path: Path) -> int:

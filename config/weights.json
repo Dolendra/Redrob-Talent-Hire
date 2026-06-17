@@ -25,11 +25,11 @@
     "cv": 0.30
   },
   "composite_weights": {
-    "s_current": 0.12,
-    "future_fit": 0.32,
-    "hidden_gem": 0.22,
-    "opportunity": 0.12,
-    "confidence": 0.08,
+    "s_current": 0.15,
+    "future_fit": 0.30,
+    "hidden_gem": 0.20,
+    "opportunity": 0.10,
+    "confidence": 0.05,
     "location_fit": 0.05,
     "experience_band": 0.05,
     "career_ir_signal": 0.10,
