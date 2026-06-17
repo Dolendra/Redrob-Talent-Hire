@@ -445,7 +445,7 @@ def get_total_tracked_candidates() -> int:
         return jsonl_count + additions
     return len(st.session_state.candidate_pool)
 
-# Load candidates from Advait.csv by matching them in session state or candidates.jsonl
+# Load candidates from Advait.csv by matching them in session state, precomputed file, or candidates.jsonl
 def load_advait_candidates() -> list[dict]:
     advait_path = ROOT / "Advait.csv"
     if not advait_path.exists():
@@ -454,13 +454,28 @@ def load_advait_candidates() -> list[dict]:
     df_advait = pd.read_csv(advait_path)
     advait_ids = set(df_advait["candidate_id"].tolist())
     
-    # Check memory pool first
     found_candidates = {}
-    for c in st.session_state.get("candidate_pool", []):
-        if c.get("candidate_id") in advait_ids:
-            found_candidates[c["candidate_id"]] = c
+    
+    # 1. Check precomputed file first (useful for offline/HF Space hosting)
+    precomputed_path = ROOT / "data" / "advait_candidates.json"
+    if precomputed_path.exists():
+        try:
+            with open(precomputed_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                for c in data:
+                    if c.get("candidate_id") in advait_ids:
+                        found_candidates[c["candidate_id"]] = c
+        except Exception:
+            pass
             
-    # If any are missing, search in candidates.jsonl on disk
+    # 2. Check memory pool
+    missing_ids = advait_ids - set(found_candidates.keys())
+    if missing_ids:
+        for c in st.session_state.get("candidate_pool", []):
+            if c.get("candidate_id") in missing_ids:
+                found_candidates[c["candidate_id"]] = c
+                
+    # 3. Scan candidates.jsonl on disk
     missing_ids = advait_ids - set(found_candidates.keys())
     if missing_ids:
         candidates_jsonl_path = ROOT / "candidates.jsonl"
