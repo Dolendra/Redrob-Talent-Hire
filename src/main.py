@@ -168,6 +168,11 @@ def run_ranking(
     pairs = [(rec, bundle) for _, _, rec, bundle in top]
     ranked = attach_reasoning(pairs, job)
 
+    if not ranked:
+        if progress_callback:
+            progress_callback(1.0, "Done!")
+        return []
+
     composites = [r.bundle.composite for r in ranked]
     c_min, c_max = min(composites), max(composites)
 

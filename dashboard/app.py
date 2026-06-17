@@ -520,14 +520,18 @@ def get_ranked_candidates_for_job(job_id: str) -> list[dict]:
     is_default_job = (job_id == "JOB_DEFAULT")
     advait_path = ROOT / "Advait.csv"
     
+    use_advait = False
     if is_default_job and advait_path.exists():
         advait_candidates = load_advait_candidates()
-        temp_pool = temp_dir / "advait_pool.json"
-        temp_pool.write_text(json.dumps(advait_candidates), encoding="utf-8")
-        pool_path = str(temp_pool)
-        mtime = os.path.getmtime(temp_pool)
-        pool_len = len(advait_candidates)
-    else:
+        if advait_candidates:
+            temp_pool = temp_dir / "advait_pool.json"
+            temp_pool.write_text(json.dumps(advait_candidates), encoding="utf-8")
+            pool_path = str(temp_pool)
+            mtime = os.path.getmtime(temp_pool)
+            pool_len = len(advait_candidates)
+            use_advait = True
+            
+    if not use_advait:
         # Ensure a valid pool path is stored on disk
         pool_path = st.session_state.get("temp_pool_path")
         if not pool_path:
