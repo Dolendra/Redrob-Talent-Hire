@@ -112,7 +112,7 @@ if "temp_pool_mtime" not in st.session_state:
     st.session_state.temp_pool_mtime = 0.0
 
 if "app_mode" not in st.session_state:
-    st.session_state.app_mode = "Recruiter Command Center"
+    st.session_state.app_mode = "Tree Opportunity Map"
 
 if "selected_candidate_id" not in st.session_state:
     st.session_state.selected_candidate_id = None
@@ -635,7 +635,7 @@ with st.sidebar:
             st.markdown(f'<div class="{"sidebar-active-item" if is_job_active else "sidebar-inactive-item"}">', unsafe_allow_html=True)
             if st.button(f"💼 {title}", key=f"sidebar_job_{job_id}"):
                 st.session_state.selected_job_id = job_id
-                st.session_state.app_mode = "Requisition Pipeline"
+                st.session_state.app_mode = "Tree Opportunity Map"
                 st.rerun()
             st.markdown('</div>', unsafe_allow_html=True)
         

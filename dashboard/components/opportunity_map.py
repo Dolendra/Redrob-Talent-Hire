@@ -190,7 +190,8 @@ def build_tree_opportunity_map(df: pd.DataFrame) -> go.Figure:
         df,
         path=["quadrant", "title", "name"],
         values="future_fit",
-        color_discrete_sequence=["#1e293b"],
+        color="quadrant",
+        color_discrete_map=QUADRANT_COLORS,
         custom_data=["Rank", "Current Fit Score", "Future Fit Score", "candidate_id"]
     )
     
